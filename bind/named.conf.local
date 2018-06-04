@@ -1,0 +1,27 @@
+view "internal" {
+	match-destinations { localhost; 172.23.45.1; };
+	recursion yes;
+	allow-query { localhost; 172.23.45.0/24; };
+
+	zone "corp.sangria.pi" IN {
+		type master;
+		file "/etc/bind/zones/db.corp.sangria.pi";
+	};
+
+	zone "sangria.pi" IN {
+		type master;
+		file "/etc/bind/zones/db.sangria.pi";
+	};
+	
+	include "/etc/bind/named.conf.default-zones";
+};
+
+view "external" {
+	match-destinations { 172.23.45.130; };
+	recursion no;
+	allow-query { any; };
+	zone "sangria.pi" IN {
+		type master;
+		file "/etc/bind/zones/db.sangria.pi";
+	};
+};
