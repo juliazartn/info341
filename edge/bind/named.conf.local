@@ -1,7 +1,7 @@
 view "internal" {
-	match-destinations { localhost; 172.23.45.1; };
+	match-clients { 127.0.0.1; 172.23.45.0/24; };
 	recursion yes;
-	allow-query { localhost; 172.23.45.0/24; };
+	allow-query { any; };
 
 	zone "corp.sangria.pi" IN {
 		type master;
@@ -12,12 +12,17 @@ view "internal" {
 		type master;
 		file "/etc/bind/zones/db.sangria.pi";
 	};
+
+	zone "pi" IN {
+		type slave;
+		masters { 10.10.10.10; };
+ 	};
 	
 	include "/etc/bind/named.conf.default-zones";
 };
 
 view "external" {
-	match-destinations { 172.23.45.130; };
+	match-clients { any; };
 	recursion no;
 	allow-query { any; };
 	zone "sangria.pi" IN {

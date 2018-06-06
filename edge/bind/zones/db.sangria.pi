@@ -2,7 +2,7 @@
 ; BIND data file for sangria.pi public zone
 ;
 $TTL	604800
-sangria.pi.	IN	SOA	ns1.sangria.pi hostmaster.sangria.pi. (
+sangria.pi.	IN	SOA	ns1.sangria.pi. hostmaster.sangria.pi. (
 		     2018060201		; Serial
 			 604800		; Refresh
 			  86400		; Retry
