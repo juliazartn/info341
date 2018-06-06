@@ -7,9 +7,9 @@
 //include "/etc/bind/zones.rfc1918";
 
 view "internal" {
-  match-destinations { localhost; 172.23.44.1; };
+  match-clients { 127.0.0.1; 172.23.44.0/24; };
   recursion yes;
-  allow-query { localhost; 172.23.44.0/22; };
+  allow-query { 127.0.0.1; 172.23.44.0/22; };
 
   zone "corp.mimosa.pi" IN {
 	type master;
@@ -30,7 +30,7 @@ view "internal" {
 };
 
 view "external" {
-  match-destinations { 172.23.44.130; };
+  match-clients { any; };
   recursion no;
   allow-query { any; };
   zone "mimosa.pi" IN {
